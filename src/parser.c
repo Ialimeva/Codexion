@@ -6,11 +6,11 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:00 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/26 09:43:02 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/26 10:51:31 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
+#include "utils.h"
 #include "lib.h"
 #include "parser.h"
 
@@ -23,11 +23,17 @@ int	validate_args(char **argv)
 	while (i <= 7)
 	{
 		if (strcmp(argv[i], "0") && atoi(argv[i]) <= 0)
+		{
 			print_error("Only positive numbers allowed.");
+			return (1);
+		}
 		i++;
 	}
 	if (strcmp(argv[i], "fifo") && strcmp(argv[i], "edf"))
+	{
 		print_error("Only fifo and edf are allowed.");
+		return (1);
+	}
 	return (0);
 }
 
