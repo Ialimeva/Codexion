@@ -6,6 +6,13 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:22 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/26 09:43:24 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/26 10:52:18 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "lib.h"
+
+void	print_error(char *message)
+{
+	printf("%s", message);
+}
