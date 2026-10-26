@@ -1,6 +1,18 @@
-#ifndef ERROR_H
-#define ERROR_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/26 09:44:53 by ialrandr          #+#    #+#             */
+/*   Updated: 2026/10/26 09:44:55 by ialrandr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void print_error(char *message);
+#ifndef ERROR_H
+# define ERROR_H
+
+void	print_error(char *message);
 
 #endif
