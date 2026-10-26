@@ -1,9 +1,21 @@
-#ifndef LIB_H
-#define LIB_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lib.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/26 09:45:02 by ialrandr          #+#    #+#             */
+/*   Updated: 2026/10/26 09:45:04 by ialrandr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <string.h>
+#ifndef LIB_H
+# define LIB_H
+
+# include <pthread.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
 
 #endif

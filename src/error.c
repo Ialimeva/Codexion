@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/26 09:43:10 by ialrandr          #+#    #+#             */
+/*   Updated: 2026/10/26 09:46:06 by ialrandr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib.h"
 
-void print_error(char *message)
+int	print_error(char *message)
 {
-    printf("%s", message);
-    exit(1);
+	printf("%s", message);
+	return (1);
 }
