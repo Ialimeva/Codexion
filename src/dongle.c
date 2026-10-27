@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:39:05 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/26 15:54:56 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/27 12:09:44 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	dongles_init(t_simulation *sim)
 {
-	int	i;
+	unsigned int	i;
 
 	i = -1;
 	sim->dongles = malloc(sim->args->nb_dongles * sizeof(t_dongle));
@@ -24,7 +24,7 @@ int	dongles_init(t_simulation *sim)
 	while (++i < sim->args->nb_dongles)
 	{
 		sim->dongles[i].id = i + 1;
-		sim->dongles[i].state = free;
+		sim->dongles[i].state = unused;
 	}
 	return (0);
 }
