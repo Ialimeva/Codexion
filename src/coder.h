@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:50:30 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/26 15:55:39 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/27 11:55:51 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 #include "models.h"
 
 int	coders_init(t_simulation *sim);
+int coder_threads(t_simulation *sim);
 
 #endif

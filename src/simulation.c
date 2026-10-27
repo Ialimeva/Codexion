@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 12:40:19 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/26 15:56:53 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/27 12:31:34 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,24 @@
 #include "dongle.h"
 #include "coder.h"
 
-void	start_simulation(t_simulation *sim)
+// TODO: Add error message
+int	start_simulation(t_simulation *sim)
 {
-	dongles_init(sim);
-	coders_init(sim);
+	unsigned int	i;
+
+	i = -1;
+	if (dongles_init(sim) || coders_init(sim))
+		return (1);
 	pthread_mutex_init(&sim->lock, NULL);
 	pthread_cond_init(&sim->cond, NULL);
-	// start coder threads (with t time for each action do not forget)
+	if (coder_threads(sim))	// start coder threads (with t time for each action do not forget)
+		return (1);
 	// monitor
+	while (++i < sim->args->nb_of_coders)
+		pthread_join(sim->coders[i].thread, NULL);
+	pthread_mutex_destroy(&sim->lock);
+	pthread_cond_destroy(&sim->cond);
+	free(sim->coders);
+	free(sim->dongles);
+	return (0);
 }
