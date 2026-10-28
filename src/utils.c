@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:22 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/28 11:50:21 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/28 15:26:46 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,24 @@ void    acquire_dongle(t_coder *coder, t_dongle *dongle)
 
     pthread_mutex_lock(coder->lock);
     while (dongle->state != unused)
+	{
         pthread_cond_wait(coder->cond, coder->lock);
+	}
+	dongle->state = used;
 	timestamp = get_time(coder->start);
-    dongle->state = used;
-	printf("%d %d has taken a dongle", timestamp, coder->id);
+	printf("%d %d has taken a dongle\n", timestamp, coder->id);
     pthread_mutex_unlock(coder->lock);
+}
+
+void	dongle_cooldown(t_dongle *dongle, t_coder *coder)
+{
+	unsigned int	current_time;
+	unsigned int	cooldown_duration;
+
+	pthread_mutex_lock(coder->lock);
+	current_time = get_time(coder->start);
+	cooldown_duration = current_time + (dongle->dongle_cooldown * 1000);
+	usleep(cooldown_duration);
+	dongle->state = unused;
+	pthread_mutex_unlock(coder->lock);
 }

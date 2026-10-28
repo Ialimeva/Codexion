@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:39:05 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/27 12:09:44 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/28 14:57:33 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	dongles_init(t_simulation *sim)
 	{
 		sim->dongles[i].id = i + 1;
 		sim->dongles[i].state = unused;
+		sim->dongles[i].dongle_cooldown = sim->args->dongle_cooldown;
 	}
 	return (0);
 }
