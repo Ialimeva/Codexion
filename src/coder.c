@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:17:41 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/28 11:16:07 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/28 15:03:54 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void *coder_routine(void *arg)
 	i = -1;
 	while (++i < coder->compile_required)
 	{
-		// acquire_dongles(coder);	// acquire dongles
+		acquire_dongles(coder);	// acquire dongles
 		compile(coder);	// compile at t time
-		// release_dongles(coder);	// release dongles
+		release_dongles(coder);	// release dongles
 		debugging(coder);	// debug
 		refractoring(coder);	// reafrator
 	}

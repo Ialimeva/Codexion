@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 11:09:59 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/28 11:46:33 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/28 15:19:42 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    acquire_dongles(t_coder *coder)
 
 void    compile(t_coder *coder)
 {
-	int	timestamp;
+	unsigned int	timestamp;
 
     pthread_mutex_lock(coder->lock);
 	timestamp = get_time(coder->start);
@@ -36,12 +36,14 @@ void    release_dongles(t_coder *coder)
     pthread_mutex_lock(coder->lock);
     coder->left_dongle->state = cooldown;
     coder->right_dongle->state = cooldown;
+	dongle_cooldown(coder->left_dongle, coder);
+	dongle_cooldown(coder->right_dongle, coder);
     pthread_mutex_unlock(coder->lock);
 }
 
 void    debugging(t_coder *coder)
 {
-	int	timestamp;
+	unsigned int	timestamp;
 
     pthread_mutex_lock(coder->lock);
 	timestamp = get_time(coder->start);
@@ -52,7 +54,7 @@ void    debugging(t_coder *coder)
 
 void    refractoring(t_coder *coder)
 {
-	int	timestamp;
+	unsigned int	timestamp;
 
     pthread_mutex_lock(coder->lock);
 	timestamp = get_time(coder->start);
