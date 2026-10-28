@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:22 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/28 11:21:49 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/28 11:50:21 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ void	print_error(char *message)
 	printf("%s", message);
 
 }
-void    acquire_dongle(t_coder *coder, t_dongle *dongle)
-{
-    pthread_mutex_lock(coder->lock);
-    while (dongle->state != unused)
-        pthread_cond_wait(coder->cond, coder->lock);
-    dongle->state = used;
-    pthread_mutex_unlock(coder->lock);
-}
-
 float	get_time(struct timeval *start)
 {
 	struct timeval	end;
@@ -40,4 +31,16 @@ float	get_time(struct timeval *start)
 		);
 
 	return (time_taken);
+}
+void    acquire_dongle(t_coder *coder, t_dongle *dongle)
+{
+	int timestamp;
+
+    pthread_mutex_lock(coder->lock);
+    while (dongle->state != unused)
+        pthread_cond_wait(coder->cond, coder->lock);
+	timestamp = get_time(coder->start);
+    dongle->state = used;
+	printf("%d %d has taken a dongle", timestamp, coder->id);
+    pthread_mutex_unlock(coder->lock);
 }
