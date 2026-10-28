@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 11:25:10 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/27 12:08:55 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/28 11:15:45 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_coder
 	pthread_t		thread;
 	pthread_mutex_t	*lock;
 	pthread_cond_t	*cond;
+	struct timeval	*start;
 }	t_coder;
 
 
@@ -51,6 +52,7 @@ typedef struct s_simulation
 	t_dongle		*dongles;
 	pthread_mutex_t	lock;
 	pthread_cond_t	cond;
+	struct timeval	start;
 }	t_simulation;
 
 #endif
