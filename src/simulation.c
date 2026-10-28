@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 12:40:19 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/27 12:31:34 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/28 11:14:56 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	start_simulation(t_simulation *sim)
 	unsigned int	i;
 
 	i = -1;
+	gettimeofday(&sim->start, NULL);
+	// TODO: Free the dongle if error on coders malloc
 	if (dongles_init(sim) || coders_init(sim))
 		return (1);
 	pthread_mutex_init(&sim->lock, NULL);

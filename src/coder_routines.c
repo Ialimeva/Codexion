@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 11:09:59 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/27 12:43:34 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/10/28 11:46:33 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ void    acquire_dongles(t_coder *coder)
 
 void    compile(t_coder *coder)
 {
+	int	timestamp;
+
     pthread_mutex_lock(coder->lock);
-    printf("timestamp_in_ms %d is compiling\n", coder->id);
+	timestamp = get_time(coder->start);
+    printf("%d %d is compiling\n", timestamp, coder->id);
     pthread_mutex_unlock(coder->lock);
     usleep(coder->time_to_compile * 1000);
 }
@@ -38,16 +41,22 @@ void    release_dongles(t_coder *coder)
 
 void    debugging(t_coder *coder)
 {
+	int	timestamp;
+
     pthread_mutex_lock(coder->lock);
-    printf("timestamp_in_ms %d is debugging\n", coder->id);
+	timestamp = get_time(coder->start);
+    printf("%d %d is debugging\n", timestamp, coder->id);
     pthread_mutex_unlock(coder->lock);
     usleep(coder->time_to_debug * 1000);
 }
 
 void    refractoring(t_coder *coder)
 {
+	int	timestamp;
+
     pthread_mutex_lock(coder->lock);
-    printf("timestamp_in_ms %d is refractoring\n", coder->id);
+	timestamp = get_time(coder->start);
+    printf("%d %d is refractoring\n", timestamp, coder->id);
     pthread_mutex_unlock(coder->lock);
     usleep(coder->time_to_refractor * 1000);
 }
