@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 11:25:10 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/28 14:57:52 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/01 09:01:57 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_dongle
 	unsigned int	id;
 	unsigned int 	dongle_cooldown;
 	t_state			state;
+	pthread_mutex_t	lock;
+	pthread_cond_t	cond;
 }	t_dongle;
 
 typedef struct s_coder
@@ -48,7 +50,6 @@ typedef struct s_coder
 	t_monitor		*monitor;
 	pthread_t		thread;
 	pthread_mutex_t	*lock;
-	pthread_cond_t	*cond;
 	struct timeval	*start;
 }	t_coder;
 
@@ -61,7 +62,6 @@ typedef struct s_simulation
 	t_dongle		*dongles;
 	t_monitor		monitor;
 	pthread_mutex_t	lock;
-	pthread_cond_t	cond;
 	struct timeval	start;
 }	t_simulation;
 

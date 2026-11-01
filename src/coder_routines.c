@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 11:09:59 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/28 15:19:42 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/01 09:55:52 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,8 @@ void    compile(t_coder *coder)
 
 void    release_dongles(t_coder *coder)
 {
-    pthread_mutex_lock(coder->lock);
-    coder->left_dongle->state = cooldown;
-    coder->right_dongle->state = cooldown;
-	dongle_cooldown(coder->left_dongle, coder);
-	dongle_cooldown(coder->right_dongle, coder);
-    pthread_mutex_unlock(coder->lock);
+    release_dongle(coder->left_dongle);
+    release_dongle(coder->right_dongle);
 }
 
 void    debugging(t_coder *coder)

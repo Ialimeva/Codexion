@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:17:41 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/28 15:03:54 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/01 10:06:18 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	coders_init(t_simulation *sim)
 		sim->coders[i].time_to_refractor = sim->args->time_to_refractor;
 		sim->coders[i].compile_required = sim->args->nb_of_compile_required;
 		sim->coders[i].lock = &sim->lock;
-		sim->coders[i].cond = &sim->cond;
 		sim->coders[i].start = &sim->start;
 	}
 	return (0);
