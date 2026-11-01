@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:22 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/01 09:55:34 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/01 18:56:39 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,9 @@ void    acquire_dongle(t_coder *coder, t_dongle *dongle)
     pthread_mutex_unlock(&dongle->lock);
 }
 
-void	dongle_cooldown(t_dongle *dongle)
-{
-	pthread_mutex_lock(&dongle->lock);
-	usleep(dongle->dongle_cooldown * 1000);
-	dongle->state = unused;
-	pthread_cond_signal(&dongle->cond);
-	pthread_mutex_unlock(&dongle->lock);
-}
-
 void    release_dongle(t_dongle *dongle)
 {
 	pthread_mutex_lock(&dongle->lock);
 	dongle->state = cooldown;
 	pthread_mutex_unlock(&dongle->lock);
-	dongle_cooldown(dongle);
 }

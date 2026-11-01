@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 11:09:59 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/01 09:55:52 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/01 21:18:20 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,16 @@ void    compile(t_coder *coder)
 
     pthread_mutex_lock(coder->lock);
 	timestamp = get_time(coder->start);
+    (*coder->compile_done)++;
     printf("%d %d is compiling\n", timestamp, coder->id);
     pthread_mutex_unlock(coder->lock);
     usleep(coder->time_to_compile * 1000);
+    pthread_mutex_lock(&coder->left_dongle->lock);
+    coder->left_dongle->last_compile_time = get_time(coder->start);
+    pthread_mutex_unlock(&coder->left_dongle->lock);
+    pthread_mutex_lock(&coder->right_dongle->lock);
+    coder->right_dongle->last_compile_time = get_time(coder->start);
+    pthread_mutex_unlock(&coder->right_dongle->lock);
 }
 
 void    release_dongles(t_coder *coder)
