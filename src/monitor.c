@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:02:01 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/02 11:46:07 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/02 15:10:09 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,36 @@
 #include "models.h"
 #include "utils.h"
 
-void    dongle_cooldown(t_monitor *monitor)
+void    change_dongle_state(t_dongle *dongle)
+{
+    pthread_mutex_lock(&dongle->lock);
+    dongle->state = unused;
+    pthread_cond_broadcast(&dongle->cond);
+    pthread_mutex_unlock(&dongle->lock);
+}
+
+void    dongle_cooldown(t_monitor *m)
 {
     unsigned int    i;
     unsigned int    total_compile;
-    unsigned int    current_time;
-    unsigned int    total_time;
+    unsigned int    current_t;
+    unsigned int    total_t;
 
-    total_compile = monitor->nb_dongles * monitor->compile_required;
+    total_compile = m->nb_dongles * m->compile_required;
     while (1)
     {
         i = -1;
-        current_time = get_time(monitor->start);
-        while (++i < monitor->nb_dongles)
+        current_t = get_time(m->start);
+        while (++i < m->nb_dongles)
         {
-            total_time = (
-                monitor->dongles[i].dongle_cooldown +
-                monitor->dongles[i].last_compile_time
+            total_t = (
+                m->dongles[i].dongle_cooldown +
+                m->dongles[i].last_compile_time
                 );
-            if (monitor->dongles[i].state == cooldown && current_time == total_time)
-            {
-                pthread_mutex_lock(&monitor->dongles[i].lock);
-                monitor->dongles[i].state = unused;
-                pthread_cond_broadcast(&monitor->dongles[i].cond);
-                pthread_mutex_unlock(&monitor->dongles[i].lock);
-            }
+            if (m->dongles[i].state == cooldown && current_t == total_t)
+                change_dongle_state(&m->dongles[i]);
         }
-        if (*monitor->compile_done == total_compile)
+        if (*m->compile_done == total_compile)
             break;
         usleep(10);
     }
