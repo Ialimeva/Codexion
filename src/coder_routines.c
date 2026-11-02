@@ -6,13 +6,13 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 11:09:59 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/01 21:18:20 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/02 11:37:09 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "models.h"
 #include "lib.h"
-#include "utils.h"
+#include "coder.h"
 
 void    acquire_dongles(t_coder *coder)
 {
@@ -22,20 +22,13 @@ void    acquire_dongles(t_coder *coder)
 
 void    compile(t_coder *coder)
 {
-	unsigned int	timestamp;
-
+    log_message(coder, "is compiling");
     pthread_mutex_lock(coder->lock);
-	timestamp = get_time(coder->start);
     (*coder->compile_done)++;
-    printf("%d %d is compiling\n", timestamp, coder->id);
     pthread_mutex_unlock(coder->lock);
     usleep(coder->time_to_compile * 1000);
-    pthread_mutex_lock(&coder->left_dongle->lock);
-    coder->left_dongle->last_compile_time = get_time(coder->start);
-    pthread_mutex_unlock(&coder->left_dongle->lock);
-    pthread_mutex_lock(&coder->right_dongle->lock);
-    coder->right_dongle->last_compile_time = get_time(coder->start);
-    pthread_mutex_unlock(&coder->right_dongle->lock);
+    update_compile_time(coder->left_dongle, coder);
+    update_compile_time(coder->right_dongle, coder);
 }
 
 void    release_dongles(t_coder *coder)
@@ -45,23 +38,13 @@ void    release_dongles(t_coder *coder)
 }
 
 void    debugging(t_coder *coder)
-{
-	unsigned int	timestamp;
-
-    pthread_mutex_lock(coder->lock);
-	timestamp = get_time(coder->start);
-    printf("%d %d is debugging\n", timestamp, coder->id);
-    pthread_mutex_unlock(coder->lock);
+{  
+    log_message(coder, "is debugging");
     usleep(coder->time_to_debug * 1000);
 }
 
 void    refractoring(t_coder *coder)
 {
-	unsigned int	timestamp;
-
-    pthread_mutex_lock(coder->lock);
-	timestamp = get_time(coder->start);
-    printf("%d %d is refractoring\n", timestamp, coder->id);
-    pthread_mutex_unlock(coder->lock);
+    log_message(coder, "is refractoring");
     usleep(coder->time_to_refractor * 1000);
 }

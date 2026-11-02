@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 10:46:54 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/01 18:56:47 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/02 11:35:58 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "models.h"
 
 void	print_error(char *message);
-void    acquire_dongle(t_coder *coder, t_dongle *dongle);
 float	get_time(struct timeval *start);
-void    release_dongle(t_dongle *dongle);
 
 #endif
