@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 11:09:59 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/02 11:37:09 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/02 15:20:30 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,16 @@
 
 void    acquire_dongles(t_coder *coder)
 {
-    acquire_dongle(coder, coder->left_dongle);
-    acquire_dongle(coder, coder->right_dongle);
+    if (coder->id % 2 == 0)
+    {
+        acquire_dongle(coder, coder->right_dongle);
+        acquire_dongle(coder, coder->left_dongle);
+    }
+    else
+    {
+        acquire_dongle(coder, coder->left_dongle);
+        acquire_dongle(coder, coder->right_dongle);
+    }
 }
 
 void    compile(t_coder *coder)
