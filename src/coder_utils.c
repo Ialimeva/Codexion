@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 10:55:31 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/03 07:20:20 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/03 15:21:47 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void    log_message(t_coder *coder, char *message)
 void    acquire_dongle(t_coder *coder, t_dongle *dongle)
 {
     pthread_mutex_lock(&dongle->lock);
+    // dongle->coder_queue[]
     while (dongle->state != unused && !*coder->burnout)
 		pthread_cond_wait(&dongle->cond, &dongle->lock);
 	dongle->state = used;

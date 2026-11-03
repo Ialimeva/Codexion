@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 11:25:10 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/03 11:17:51 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/03 15:40:33 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include "parser.h"
 #include "lib.h"
+
+typedef	struct s_queue	t_queue;
 
 typedef enum e_state
 {
@@ -29,6 +31,7 @@ typedef struct s_dongle
 	unsigned int 	dongle_cooldown;
 	unsigned int 	last_compile_time;
 	t_state			state;
+	t_queue			queue;
 	pthread_mutex_t	lock;
 	pthread_cond_t	cond;
 }	t_dongle;
@@ -67,6 +70,14 @@ typedef struct s_monitor
 	pthread_mutex_t	lock;
 	struct timeval	*start;
 }	t_monitor;
+
+typedef	struct s_queue
+{
+	unsigned int size;
+	unsigned int head;
+	unsigned int tail;
+	t_coder		*coder_queue;
+}	t_queue;
 
 typedef struct s_simulation
 {
