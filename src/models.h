@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 11:25:10 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/02 18:29:14 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/03 11:17:51 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ typedef struct s_coder
 
 typedef struct s_monitor
 {
+	unsigned int    total_compile;
+    unsigned int    current_t;
+    unsigned int    burnout_t;
+    unsigned int    total_t;
 	unsigned int	nb_coders;
 	unsigned int	compile_required;
 	unsigned int	*burnout;

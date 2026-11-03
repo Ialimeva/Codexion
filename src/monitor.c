@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:02:01 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/03 07:29:41 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/03 11:45:58 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,49 +15,42 @@
 #include "utils.h"
 #include "coder.h"
 
-void    change_dongle_state(t_dongle *dongle)
+static void    change_dongle_state(t_dongle *dongle)
 {
     pthread_mutex_lock(&dongle->lock);
     dongle->state = unused;
     pthread_cond_broadcast(&dongle->cond);
     pthread_mutex_unlock(&dongle->lock);
 }
+static void    check_limits(t_monitor *m, t_dongle *d, t_coder *c)
+{
+    m->total_t = d->dongle_cooldown + d->last_compile_time;
+    m->burnout_t = c->time_to_burnout + c->last_compile_time;
+}
 
 void    routine(t_monitor *m)
 {
     unsigned int    i;
-    unsigned int    total_compile;
-    unsigned int    current_t;
-    unsigned int    burnout_t;
-    unsigned int    total_t;
     
-    total_compile = m->nb_coders * m->compile_required;
     while (1)
     {
         i = -1;
-        current_t = get_time(m->start);
+        m->current_t = get_time(m->start);
         while (++i < m->nb_coders)
         {
-            total_t = (
-                m->dongles[i].dongle_cooldown +
-                m->dongles[i].last_compile_time
-            );
-            burnout_t = (
-                m->coders[i].time_to_burnout +
-                m->coders[i].last_compile_time
-                );
-            if (m->dongles[i].state == cooldown && current_t >= total_t)
+            check_limits(m, &m->dongles[i], &m->coders[i]);
+            if (m->dongles[i].state == cooldown && m->current_t >= m->total_t)
                 change_dongle_state(&m->dongles[i]);
-            if (current_t >= burnout_t)
+            if (m->current_t >= m->burnout_t)
             {
                 pthread_mutex_lock(m->coders[i].lock);
                 *m->burnout = 1;
-                printf("%d %d has burned out", current_t, m->coders[i].id);
+                printf("%d %d has burned out", m->current_t, m->coders[i].id);
                 pthread_mutex_unlock(m->coders[i].lock);
                 break;
             }
         }
-        if (*m->compile_done == total_compile || *m->burnout)
+        if (*m->compile_done == m->total_compile || *m->burnout)
             break;
         usleep(10);
     }
@@ -68,6 +61,10 @@ void *monitor_routine(void *arg)
     t_monitor    *monitor;
 
     monitor = (t_monitor *) arg;
+    monitor->current_t = 0;
+    monitor->burnout_t = 0;
+    monitor->total_t = 0;
+    monitor->total_compile = monitor->nb_coders * monitor->compile_required;
     routine(monitor);
     return (NULL);
 }
