@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:17:41 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/01 19:40:36 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/03 07:12:55 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,13 @@ int	coders_init(t_simulation *sim)
 		sim->coders[i].time_to_compile = sim->args->time_to_compile;
 		sim->coders[i].time_to_debug = sim->args->time_to_debug;
 		sim->coders[i].time_to_refractor = sim->args->time_to_refractor;
+		sim->coders[i].time_to_burnout = sim->args->time_to_burnout;
 		sim->coders[i].compile_required = sim->args->nb_of_compile_required;
 		sim->coders[i].lock = &sim->lock;
 		sim->coders[i].start = &sim->start;
 		sim->coders[i].compile_done = &sim->compile_done;
+		sim->coders[i].burnout = &sim->burnout;
+		sim->coders[i].last_compile_time = 0;
 	}
 	return (0);
 }
@@ -47,7 +50,7 @@ void *coder_routine(void *arg)
 
 	coder = (t_coder *) arg;
 	i = -1;
-	while (++i < coder->compile_required)
+	while (++i < coder->compile_required && !*coder->burnout)
 	{
 		acquire_dongles(coder);	// acquire dongles
 		compile(coder);	// compile at t time
@@ -55,7 +58,7 @@ void *coder_routine(void *arg)
 		debugging(coder);	// debug
 		refractoring(coder);	// reafrator
 	}
-	return NULL;	
+	return NULL;
 }
 
 int coder_threads(t_simulation *sim)

@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 12:40:19 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/01 19:20:22 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/03 06:37:36 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,19 @@ int	start_simulation(t_simulation *sim)
 	if (coder_threads(sim))	// start coder threads (with t time for each action do not forget)
 		return (1);
 	// monitor
+	pthread_join(sim->monitor.thread, NULL);
+	if (sim->burnout)
+	{
+		while (++i < sim->args->nb_dongles)
+		{
+			pthread_mutex_lock(&sim->dongles[i].lock);
+			pthread_cond_broadcast(&sim->dongles[i].cond);
+			pthread_mutex_unlock(&sim->dongles[i].lock);
+		}
+	}
+	i = -1;
 	while (++i < sim->args->nb_of_coders)
 		pthread_join(sim->coders[i].thread, NULL);
-	pthread_join(sim->monitor.thread, NULL);
 	pthread_mutex_destroy(&sim->lock);
 	free(sim->coders);
 	free(sim->dongles);

@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 11:25:10 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/01 20:43:54 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/02 18:29:14 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ typedef struct s_coder
 	unsigned int	time_to_compile;
 	unsigned int	time_to_debug;
 	unsigned int	time_to_refractor;
+	unsigned int	time_to_burnout;
 	unsigned int	compile_required;
+	unsigned int 	last_compile_time;
 	unsigned int	*compile_done;
+	unsigned int	*burnout;
 	t_dongle		*left_dongle;
 	t_dongle		*right_dongle;
 	pthread_t		thread;
@@ -50,10 +53,12 @@ typedef struct s_coder
 
 typedef struct s_monitor
 {
-	unsigned int	nb_dongles;
+	unsigned int	nb_coders;
 	unsigned int	compile_required;
+	unsigned int	*burnout;
 	unsigned int	*compile_done;
 	t_dongle		*dongles;
+	t_coder			*coders;
 	pthread_t		thread;
 	pthread_mutex_t	lock;
 	struct timeval	*start;
@@ -62,6 +67,7 @@ typedef struct s_monitor
 typedef struct s_simulation
 {
 	unsigned int	compile_done;
+	unsigned int	burnout;
 	t_args			*args;
 	t_coder			*coders;
 	t_dongle		*dongles;
