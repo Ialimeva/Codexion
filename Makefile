@@ -2,6 +2,7 @@ NAME  = codexion
 CFLAGS = -Wall -Wextra -Werror -g #TODO: Remove -g
 OBJ_DIR = OBJ
 SOURCE_DIR = src
+# TODO: Change source file find to all files
 SOURCE = $(shell find $(SOURCE_DIR) -name "*.c" -type f)
 OBJECTS := $(SOURCE:$(SOURCE_DIR)/%.c=$(OBJ_DIR)/%.o)
 

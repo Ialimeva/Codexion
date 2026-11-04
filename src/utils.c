@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:22 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/02 11:35:51 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/04 10:46:48 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,14 @@ float	get_time(struct timeval *start)
 		);
 
 	return (time_taken);
+}
+
+unsigned int	queue_len(t_coder **queue)
+{
+	unsigned int i;
+
+	i = 0;
+	while (queue[i])
+		i++;
+	return (i);
 }
