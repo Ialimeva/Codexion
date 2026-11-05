@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:39:05 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/04 10:44:54 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/05 16:08:55 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,14 @@ int	dongles_init(t_simulation *sim)
 		sim->dongles[i].id = i + 1;
 		sim->dongles[i].state = unused;
 		sim->dongles[i].dongle_cooldown = sim->args->dongle_cooldown;
-		sim->dongles[i].scheduler = sim->args->scheduler;
 		sim->dongles[i].last_compile_time = 0;
-		sim->dongles[i].queue.size = q_size;
-		sim->dongles[i].queue.tail = 0;
-		sim->dongles[i].queue.head = 0;
-		sim->dongles[i].queue.schedule_done = 0;
-		sim->dongles[i].queue.coder_queue = malloc(q_size * sizeof(t_coder *));
-		memset(sim->dongles[i].queue.coder_queue, 0, q_size * sizeof(t_coder *));
+		sim->dongles[i].heap.scheduler = sim->args->scheduler;
+		sim->dongles[i].heap.queue_size = q_size;
+		sim->dongles[i].heap.size = 0;
+		sim->dongles[i].heap.queue = malloc(q_size * sizeof(t_coder *));
+		memset(sim->dongles[i].heap.queue, 0, q_size * sizeof(t_coder *));
 		pthread_mutex_init(&sim->dongles[i].lock, NULL);
 		pthread_cond_init(&sim->dongles[i].cond, NULL);
-		pthread_cond_init(&sim->dongles[i].queue.cond, NULL);
 	}
 	return (0);
 }

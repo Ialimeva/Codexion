@@ -6,14 +6,14 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 10:55:31 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/04 15:44:40 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/05 16:02:38 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "models.h"
 #include "lib.h"
 #include "utils.h"
-#include "scheduler.h"
+#include "heap.h"
 
 void    log_message(t_coder *coder, char *message)
 {
@@ -31,14 +31,11 @@ void    log_message(t_coder *coder, char *message)
 void    acquire_dongle(t_coder *coder, t_dongle *dongle)
 {
     pthread_mutex_lock(&dongle->lock);
-	dongle->queue.coder_queue[dongle->queue.tail] = coder;
-	dongle->queue.tail = (dongle->queue.tail + 1) % dongle->queue.size;
-	// arrange queue depending on fifo or edf with the dongle lock on
-	scheduler(dongle);
-	// read head element wihtout pop
-    while ((dongle->state != unused || dongle->queue.chosen_coder != coder) && !*coder->burnout) // check if the value at head is the coder
+	heap_push(&dongle->heap, coder);
+    while (heap_peek(&dongle->heap) == coder && dongle->state != unused && !*coder->burnout) // check if first coder in the queue is them
 		pthread_cond_wait(&dongle->cond, &dongle->lock);
 	dongle->state = used;
+	heap_pop(&dongle->heap);
     pthread_mutex_unlock(&dongle->lock);
     log_message(coder, "has taken a dongle");
 }

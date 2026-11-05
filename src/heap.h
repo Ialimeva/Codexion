@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scheduler.h                                        :+:      :+:    :+:   */
+/*   heap.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:17:28 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/04 10:18:55 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/05 16:10:21 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCHEDULER_H
-#define SCHEDULER_H
+#ifndef HEAP_H
+#define HEAP_H
 
-#include "models.h"
+typedef struct s_coder   t_coder;
 
-void	scheduler(t_dongle *dongle);
+typedef struct s_heap
+{
+	unsigned int	size;
+	unsigned int	queue_size;
+	t_coder			**queue;
+	char			*scheduler;
+} 					t_heap;
+
+unsigned int	queue_size(t_coder **queue);
+t_coder			*heap_pop(t_heap *heap);
+t_coder			*heap_peek(t_heap *heap);
+void			heap_push(t_heap *heap, t_coder *coder);
+t_heap			*fifo(t_heap *heap);
+t_heap			*edf(t_heap *heap);
 
 #endif

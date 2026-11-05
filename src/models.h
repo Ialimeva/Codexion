@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 11:25:10 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/04 10:31:41 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/05 14:48:00 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "parser.h"
 #include "lib.h"
+#include "heap.h"
 
 typedef struct s_coder   t_coder;
 typedef struct s_dongle  t_dongle;
@@ -46,17 +47,6 @@ typedef struct s_coder
 }	t_coder;
 
 
-typedef	struct s_queue
-{
-	unsigned int 	size;
-	unsigned int 	head;
-	unsigned int 	tail;
-	unsigned int	schedule_done;
-	t_coder			**coder_queue;
-	t_coder			*chosen_coder;
-	pthread_cond_t	cond;
-}	t_queue;
-
 typedef struct s_dongle
 {
 	unsigned int	id;
@@ -64,7 +54,7 @@ typedef struct s_dongle
 	unsigned int 	last_compile_time;
 	char			*scheduler;
 	t_state			state;
-	t_queue			queue;
+	t_heap			heap;
 	pthread_mutex_t	lock;
 	pthread_cond_t	cond;
 }	t_dongle;
