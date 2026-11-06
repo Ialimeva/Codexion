@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:45:18 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/26 09:45:20 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/06 14:35:40 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ typedef struct args
 	char			*scheduler;
 }					t_args;
 
-int					parser(int *argc, char **argv, t_args *args);
+int					parser(int argc, char **argv, t_args *args);
 
 #endif

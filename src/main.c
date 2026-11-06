@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:34:18 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/02 17:06:59 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/06 14:35:32 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 	t_args			args;
 	t_simulation	simulation;
 
-	if (parser(&argc, argv, &args))
+	if (parser(argc, argv, &args))
 		return (1);
 	simulation.args = &args;
 	simulation.compile_done = 0;
