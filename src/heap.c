@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 08:36:11 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/05 16:10:49 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/06 10:20:39 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 #include "lib.h"
 #include "models.h"
 
-unsigned int	queue_size(t_coder **queue)
-{
-	unsigned int	i;
+// unsigned int	queue_size(t_coder **queue)
+// {
+// 	unsigned int	i;
 
-	i = 0;
-	while (queue[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (queue[i])
+// 		i++;
+// 	return (i);
+// }
 
 t_coder	*heap_pop(t_heap *heap)
 {
 	t_coder *coder;
 	
 	coder = NULL;
-	if (queue_size(heap->queue) > 0)
+	if (heap->size > 0)
 	{
+		heap->size--;
 		coder = heap->queue[0];
 		if (heap->queue[1])
 		{
@@ -50,9 +51,9 @@ t_coder	*heap_peek(t_heap *heap)
 
 void	heap_push(t_heap *heap, t_coder *coder)
 {
-	heap->size = queue_size(heap->queue);
 	heap->queue[heap->size] = coder;
-	if (queue_size(heap->queue) > 1)
+	heap->size++;
+	if (heap->size > 1)
 	{
 		// comparaison function
 		if (!strcmp(heap->scheduler, "fifo"))
