@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:17:41 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/03 07:12:55 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/06 14:30:00 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ int	coders_init(t_simulation *sim)
 	}
 	return (0);
 }
-
+// TODO: Remove comments
 void *coder_routine(void *arg)
 {
 	t_coder 		*coder;
 	unsigned int 	i;
 
 	coder = (t_coder *) arg;
+	if (coder->id %2 == 0) // and scheduler edf only
+		usleep(5);
 	i = -1;
 	while (++i < coder->compile_required && !*coder->burnout)
 	{

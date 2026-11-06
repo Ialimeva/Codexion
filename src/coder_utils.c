@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 10:55:31 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/06 13:48:05 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/06 14:15:27 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void    log_message(t_coder *coder, char *message)
 void    acquire_dongle(t_coder *coder, t_dongle *dongle)
 {
     pthread_mutex_lock(&dongle->lock);
-	heap_push(&dongle->heap, coder);
-    while ((heap_peek(&dongle->heap) != coder || dongle->state != unused) && !*coder->burnout) // check if first coder in the queue is them
-		pthread_cond_wait(&dongle->cond, &dongle->lock);
+	// heap_push(&dongle->heap, coder);
+    // while ((heap_peek(&dongle->heap) != coder || dongle->state != unused) && !*coder->burnout) // check if first coder in the queue is them
+	// 	pthread_cond_wait(&dongle->cond, &dongle->lock);
 	dongle->state = used;
 	heap_pop(&dongle->heap);
     pthread_mutex_unlock(&dongle->lock);
