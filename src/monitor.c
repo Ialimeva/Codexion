@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:02:01 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/03 11:45:58 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/07 17:31:28 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void    routine(t_monitor *m)
             {
                 pthread_mutex_lock(m->coders[i].lock);
                 *m->burnout = 1;
-                printf("%d %d has burned out", m->current_t, m->coders[i].id);
+                printf("%d %d has burned out\n", m->current_t, m->coders[i].id);
                 pthread_mutex_unlock(m->coders[i].lock);
                 break;
             }

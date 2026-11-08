@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 10:55:31 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/06 13:48:05 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/08 13:47:39 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,30 @@ void    log_message(t_coder *coder, char *message)
     }
 }
 
-void    acquire_dongle(t_coder *coder, t_dongle *dongle)
+void    acquire_dongle(t_coder *coder, t_dongle *da, t_dongle *db)
 {
-    pthread_mutex_lock(&dongle->lock);
-	heap_push(&dongle->heap, coder);
-    while ((heap_peek(&dongle->heap) != coder || dongle->state != unused) && !*coder->burnout) // check if first coder in the queue is them
-		pthread_cond_wait(&dongle->cond, &dongle->lock);
-	dongle->state = used;
-	heap_pop(&dongle->heap);
-    pthread_mutex_unlock(&dongle->lock);
+    pthread_mutex_lock(&da->lock);
+    pthread_mutex_lock(&db->lock);
+    while (!*coder->burnout
+        && !(heap_peek(&da->heap) == coder && da->state == unused
+          && heap_peek(&db->heap) == coder && db->state == unused))
+    {
+        pthread_mutex_unlock(&db->lock);
+        pthread_mutex_unlock(&da->lock);
+        usleep(1);
+        pthread_mutex_lock(&da->lock);
+        pthread_mutex_lock(&db->lock);
+    }
+    if (!*coder->burnout)
+    {
+        heap_pop(&da->heap);
+        heap_pop(&db->heap);
+        da->state = used;
+        db->state = used;
+    }
+    pthread_mutex_unlock(&db->lock);
+    pthread_mutex_unlock(&da->lock);
+    log_message(coder, "has taken a dongle");
     log_message(coder, "has taken a dongle");
 }
 

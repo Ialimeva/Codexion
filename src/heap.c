@@ -6,23 +6,13 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 08:36:11 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/06 10:20:39 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/07 21:47:09 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heap.h"
 #include "lib.h"
 #include "models.h"
-
-// unsigned int	queue_size(t_coder **queue)
-// {
-// 	unsigned int	i;
-
-// 	i = 0;
-// 	while (queue[i])
-// 		i++;
-// 	return (i);
-// }
 
 t_coder	*heap_pop(t_heap *heap)
 {
@@ -61,4 +51,14 @@ void	heap_push(t_heap *heap, t_coder *coder)
 		else
 			edf(heap);
 	}
+}
+
+void	enqueue(t_coder *coder, t_dongle *first, t_dongle *second)
+{
+	pthread_mutex_lock(&first->lock);
+	heap_push(&first->heap, coder);
+	pthread_mutex_unlock(&first->lock);
+	pthread_mutex_lock(&second->lock);
+	heap_push(&second->heap, coder);
+	pthread_mutex_unlock(&second->lock);
 }
