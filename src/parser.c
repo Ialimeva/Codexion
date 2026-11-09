@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:00 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/09 10:32:35 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/09 19:38:09 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "lib.h"
 #include "parser.h"
 
-// TODO: atoi long for impossible integers
 int	validate_args(char **argv)
 {
 	int	i;
@@ -24,19 +23,19 @@ int	validate_args(char **argv)
 	{
 		if (ft_strlen(argv[i]) > 6)
 		{
-			print_error("Only 6 digits allowed.");
+			print_error("Only 6 digits allowed.\ns");
 			return (1);
 		}
 		if (strcmp(argv[i], "0") && atoi(argv[i]) <= 0)
 		{
-			print_error("Only positive numbers allowed.");
+			print_error("Only positive numbers allowed.\n");
 			return (1);
 		}
 		i++;
 	}
 	if (strcmp(argv[i], "fifo") && strcmp(argv[i], "edf"))
 	{
-		print_error("Only fifo and edf are allowed.");
+		print_error("Only fifo and edf are allowed.\n");
 		return (1);
 	}
 	return (0);
@@ -45,7 +44,10 @@ int	validate_args(char **argv)
 int	parser(int *argc, char **argv, t_args *args)
 {
 	if (*argc != 9)
-		print_error("8 arguments only");
+	{
+		print_error("8 arguments only.\n");
+		return (1);
+	}
 	if (!validate_args(argv))
 	{
 		args->nb_of_coders = atoi(argv[1]);

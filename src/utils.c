@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:22 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/09 14:33:07 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/09 19:11:48 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ void	smart_sleep(t_coder *coder, unsigned int ms)
 
 	end = get_time(coder->start) + ms;
 	while (!*coder->burnout && get_time(coder->start) < end)
-		usleep(500);
+		usleep(5);
 }

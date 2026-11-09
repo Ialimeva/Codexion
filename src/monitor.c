@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:02:01 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/07 17:31:28 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/09 21:20:09 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,12 @@
 #include "models.h"
 #include "utils.h"
 #include "coder.h"
-
-static void    change_dongle_state(t_dongle *dongle)
-{
-    pthread_mutex_lock(&dongle->lock);
-    dongle->state = unused;
-    pthread_cond_broadcast(&dongle->cond);
-    pthread_mutex_unlock(&dongle->lock);
-}
-static void    check_limits(t_monitor *m, t_dongle *d, t_coder *c)
-{
-    m->total_t = d->dongle_cooldown + d->last_compile_time;
-    m->burnout_t = c->time_to_burnout + c->last_compile_time;
-}
+#include "monitor.h"
 
 void    routine(t_monitor *m)
 {
     unsigned int    i;
+    t_state       state;
     
     while (1)
     {
@@ -39,18 +28,18 @@ void    routine(t_monitor *m)
         while (++i < m->nb_coders)
         {
             check_limits(m, &m->dongles[i], &m->coders[i]);
-            if (m->dongles[i].state == cooldown && m->current_t >= m->total_t)
+            pthread_mutex_lock(&m->dongles[i].lock);
+            state = m->dongles[i].state;
+            pthread_mutex_unlock(&m->dongles[i].lock);
+            if (state == cooldown && m->current_t >= m->total_t)
                 change_dongle_state(&m->dongles[i]);
-            if (m->current_t >= m->burnout_t)
+            if (m->current_t > m->burnout_t)
             {
-                pthread_mutex_lock(m->coders[i].lock);
-                *m->burnout = 1;
-                printf("%d %d has burned out\n", m->current_t, m->coders[i].id);
-                pthread_mutex_unlock(m->coders[i].lock);
+                burnout(&m->coders[i], m);
                 break;
             }
         }
-        if (*m->compile_done == m->total_compile || *m->burnout)
+        if (end_monitor(m))
             break;
         usleep(10);
     }
@@ -80,7 +69,7 @@ int	monitor_init(t_simulation *sim)
     sim->monitor.compile_done = &sim->compile_done;
     sim->monitor.start = &sim->start;
     sim->monitor.burnout = &sim->burnout;
-    pthread_mutex_init(&sim->monitor.lock, NULL);
+    sim->monitor.lock = &sim->lock;
 	rc = pthread_create(
         &sim->monitor.thread, NULL, monitor_routine, &sim->monitor
         );

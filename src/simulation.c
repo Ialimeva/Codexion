@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 12:40:19 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/03 06:37:36 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/09 19:47:48 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "dongle.h"
 #include "coder.h"
 #include "monitor.h"
+#include "cleanup.h"
 
 // TODO: Add error message
 int	start_simulation(t_simulation *sim)
@@ -23,30 +24,22 @@ int	start_simulation(t_simulation *sim)
 
 	i = -1;
 	gettimeofday(&sim->start, NULL);
-	// TODO: Free the dongle if error on coders malloc
-	if (dongles_init(sim) || coders_init(sim))
+	if (dongles_init(sim))
 		return (1);
-	pthread_mutex_init(&sim->lock, NULL);
-	if (monitor_init(sim))
-		return (1);
-	if (coder_threads(sim))	// start coder threads (with t time for each action do not forget)
-		return (1);
-	// monitor
-	pthread_join(sim->monitor.thread, NULL);
-	if (sim->burnout)
+	if (coders_init(sim))
 	{
-		while (++i < sim->args->nb_dongles)
-		{
-			pthread_mutex_lock(&sim->dongles[i].lock);
-			pthread_cond_broadcast(&sim->dongles[i].cond);
-			pthread_mutex_unlock(&sim->dongles[i].lock);
-		}
+		free_dongles(sim);
+		return (1);
 	}
-	i = -1;
+	pthread_mutex_init(&sim->lock, NULL);
+	if (monitor_init(sim) || coder_threads(sim))
+	{
+		free_sim(sim);
+		return (1);
+	}
+	pthread_join(sim->monitor.thread, NULL);
 	while (++i < sim->args->nb_of_coders)
 		pthread_join(sim->coders[i].thread, NULL);
-	pthread_mutex_destroy(&sim->lock);
-	free(sim->coders);
-	free(sim->dongles);
+	free_sim(sim);
 	return (0);
 }

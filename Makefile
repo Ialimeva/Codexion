@@ -1,5 +1,5 @@
 NAME  = codexion
-CFLAGS = -Wall -Wextra -Werror -g #TODO: Remove -g
+CFLAGS = -Wall -Wextra -Werror -g -pthread #TODO: Remove -g
 OBJ_DIR = OBJ
 SOURCE_DIR = src
 # TODO: Change source file find to all files

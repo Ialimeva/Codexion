@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/09 11:30:27 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/09 12:04:03 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/09 19:49:20 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,4 @@ void	free_sim(t_simulation *sim)
     free_dongles(sim);
     free(sim->coders);
     pthread_mutex_destroy(&sim->lock);
-}
-
-void    burnout_wake(t_simulation *sim)
-{
-    unsigned int i;
-
-    i = -1;
-    while (i < sim->args->nb_dongles)
-    {
-        pthread_mutex_lock(&sim->dongles[i].lock);
-        pthread_cond_broadcast(&sim->dongles[i].cond);
-        pthread_mutex_unlock(&sim->dongles[i].lock);
-    }
 }

@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 11:25:10 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/07 21:50:21 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/09 21:16:39 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_monitor
 	t_dongle		*dongles;
 	t_coder			*coders;
 	pthread_t		thread;
-	pthread_mutex_t	lock;
+	pthread_mutex_t	*lock;
 	struct timeval	*start;
 }	t_monitor;
 
