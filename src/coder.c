@@ -6,13 +6,14 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:17:41 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/08 13:48:34 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/09 10:52:10 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 #include "models.h"
 #include "coder_routines.h"
+#include "utils.h"
 
 int	coders_init(t_simulation *sim)
 {
@@ -50,8 +51,8 @@ void *coder_routine(void *arg)
 
 	coder = (t_coder *) arg;
 	i = -1;
-	if (coder->id % 2 == 0)
-		usleep(coder->time_to_compile * 1000);
+	if (coder->id % 2 == 0 && !strcmp(coder->left_dongle->heap.scheduler, "edf"))
+		smart_sleep(coder, coder->time_to_compile);
 	while (++i < coder->compile_required && !*coder->burnout)
 	{
 		acquire_dongles(coder);	// acquire dongles

@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 11:09:59 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/08 13:57:53 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/09 10:46:10 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "lib.h"
 #include "coder.h"
 #include "heap.h"
+#include "utils.h"
 
 void    acquire_dongles(t_coder *coder)
 {
@@ -34,7 +35,8 @@ void    compile(t_coder *coder)
     (*coder->compile_done)++;
     pthread_mutex_unlock(coder->lock);
     update_compile_time_coder(coder);
-    usleep(coder->time_to_compile * 1000);
+    smart_sleep(coder, coder->time_to_compile);
+    // usleep(coder->time_to_compile * 1000);
     update_compile_time_dongle(coder->left_dongle, coder);
     update_compile_time_dongle(coder->right_dongle, coder);
 }
@@ -53,11 +55,13 @@ void    release_dongles(t_coder *coder)
 void    debugging(t_coder *coder)
 {  
     log_message(coder, "is debugging");
-    usleep(coder->time_to_debug * 1000);
+    smart_sleep(coder, coder->time_to_debug);
+    // usleep(coder->time_to_debug * 1000);
 }
 
 void    refractoring(t_coder *coder)
 {
     log_message(coder, "is refractoring");
-    usleep(coder->time_to_refractor * 1000);
+    smart_sleep(coder, coder->time_to_refractor);
+    // usleep(coder->time_to_refractor * 1000);
 }

@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:00 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/10/26 10:51:31 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/09 10:32:35 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	validate_args(char **argv)
 	i = 1;
 	while (i <= 7)
 	{
+		if (ft_strlen(argv[i]) > 6)
+		{
+			print_error("Only 6 digits allowed.");
+			return (1);
+		}
 		if (strcmp(argv[i], "0") && atoi(argv[i]) <= 0)
 		{
 			print_error("Only positive numbers allowed.");

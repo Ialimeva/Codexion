@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:22 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/04 10:46:48 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/09 10:43:57 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,21 @@ float	get_time(struct timeval *start)
 	return (time_taken);
 }
 
-unsigned int	queue_len(t_coder **queue)
+unsigned int	ft_strlen(char *str)
 {
 	unsigned int i;
 
 	i = 0;
-	while (queue[i])
+	while (str[i])
 		i++;
 	return (i);
+}
+
+void	smart_sleep(t_coder *coder, unsigned int ms)
+{
+	unsigned int	end;
+
+	end = get_time(coder->start) + ms;
+	while (!*coder->burnout && get_time(coder->start) < end)
+		usleep(500);
 }
