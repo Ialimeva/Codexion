@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 10:55:31 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/08 13:47:39 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/09 14:46:47 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void    acquire_dongle(t_coder *coder, t_dongle *da, t_dongle *db)
 {
     pthread_mutex_lock(&da->lock);
     pthread_mutex_lock(&db->lock);
-    while (!*coder->burnout
-        && !(heap_peek(&da->heap) == coder && da->state == unused
-          && heap_peek(&db->heap) == coder && db->state == unused))
+    while (!*coder->burnout ||
+        (!(heap_peek(&da->heap) == coder && da->state == unused
+          && heap_peek(&db->heap) == coder && db->state == unused)))
     {
         pthread_mutex_unlock(&db->lock);
         pthread_mutex_unlock(&da->lock);

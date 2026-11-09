@@ -1,0 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cleanup.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/09 11:30:49 by ialrandr          #+#    #+#             */
+/*   Updated: 2026/11/09 11:48:38 by ialrandr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CLEANUP_H
+#define CLEANUP_H
+
+#include "models.h"
+
+void    free_dongles(t_simulation *sim);
+void	free_sim(t_simulation *sim);
+void    burnout_wake(t_simulation *sim);
+
+#endif
