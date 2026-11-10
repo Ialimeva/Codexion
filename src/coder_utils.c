@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 10:55:31 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/09 19:35:04 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/10 14:45:49 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 #include "lib.h"
 #include "utils.h"
 #include "heap.h"
+#include "monitor.h"
 
 void    log_message(t_coder *coder, char *message)
 {
-    if (!*coder->burnout)
+    if (!check_burnout(coder))
     {
         unsigned int    timestamp;
     
@@ -33,7 +34,7 @@ void    acquire_dongle(t_coder *coder, t_dongle *da, t_dongle *db)
 	int ok;
 
 	ok = 0;
-    while (!*coder->burnout && !ok)
+    while (!check_burnout(coder) && !ok)
     {
         pthread_mutex_lock(&da->lock);
         pthread_mutex_lock(&db->lock);

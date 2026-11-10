@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 12:02:05 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/09 21:20:47 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/10 14:39:17 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void    change_dongle_state(t_dongle *dongle);
 void    check_limits(t_monitor *m, t_dongle *d, t_coder *c);
 void    burnout(t_coder *coder, t_monitor *m);
 int    end_monitor(t_monitor *m);
+int	check_burnout(t_coder *coder);
 
 #endif

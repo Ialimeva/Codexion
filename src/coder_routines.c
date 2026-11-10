@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 11:09:59 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/09 19:09:34 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/10 15:02:02 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,27 @@
 #include "coder.h"
 #include "heap.h"
 #include "utils.h"
+#include "monitor.h"
 
 void    acquire_dongles(t_coder *coder)
 {
-    if (!*coder->burnout)
-    {
-        enqueue(coder, coder->left_dongle, coder->right_dongle);
-        if (coder->id % 2 == 0)
-            acquire_dongle(coder, coder->right_dongle, coder->left_dongle);
-        else
-            acquire_dongle(coder, coder->left_dongle, coder->right_dongle);
-    }
+	t_dongle *first;
+	t_dongle *second;
+
+	if (check_burnout(coder))
+		return ;
+	if (coder->left_dongle->id < coder->right_dongle->id)
+	{
+		first = coder->left_dongle;
+		second = coder->right_dongle;
+	}
+	else
+	{
+		first = coder->right_dongle;
+		second = coder->left_dongle;
+	}
+	enqueue(coder, first, second);
+	acquire_dongle(coder, first, second);
 }
 
 void    compile(t_coder *coder)

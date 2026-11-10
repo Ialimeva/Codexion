@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 08:36:11 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/09 19:11:25 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/10 13:45:01 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	heap_push(t_heap *heap, t_coder *coder)
 void	enqueue(t_coder *coder, t_dongle *first, t_dongle *second)
 {
 	pthread_mutex_lock(&first->lock);
-	pthread_mutex_lock(&second->lock);
 	heap_push(&first->heap, coder);
+	pthread_mutex_unlock(&first->lock);
+	pthread_mutex_lock(&second->lock);
 	heap_push(&second->heap, coder);
 	pthread_mutex_unlock(&second->lock);
-	pthread_mutex_unlock(&first->lock);
 }

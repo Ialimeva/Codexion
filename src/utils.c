@@ -6,12 +6,13 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:22 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/09 19:11:48 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/10 14:44:38 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 #include "models.h"
+#include "monitor.h"
 
 void	print_error(char *message)
 {
@@ -48,6 +49,6 @@ void	smart_sleep(t_coder *coder, unsigned int ms)
 	unsigned int	end;
 
 	end = get_time(coder->start) + ms;
-	while (!*coder->burnout && get_time(coder->start) < end)
+	while (!check_burnout(coder) && get_time(coder->start) < end)
 		usleep(5);
 }
