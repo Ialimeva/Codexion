@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:17:41 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/10 15:41:59 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/10 15:48:53 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void *coder_routine(void *arg)
 
 	// }
 	// scheduler in coder,not dongle
-	if (coder->id % 2 == 0 && !strcmp(coder->left_dongle->heap.scheduler, "edf"))
+	if (coder->id % 2 == 0 && !strcmp(coder->left_dongle->scheduler, "edf"))
 		smart_sleep(coder, coder->time_to_compile);
 	while (++i < coder->compile_required && !check_burnout(coder))
 	{
