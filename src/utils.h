@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 10:46:54 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/09 10:44:10 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 09:27:46 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 #include "models.h"
 
-void	print_error(char *message);
 float	get_time(struct timeval *start);
 unsigned int	ft_strlen(char *str);
 void	smart_sleep(t_coder *coder, unsigned int ms);

@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:34:18 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/02 17:06:59 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 09:16:17 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "models.h"
 #include "simulation.h"
 
-// TODO: Add error message
 int	main(int argc, char **argv)
 {
 	t_args			args;

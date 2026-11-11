@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 08:36:11 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/10 13:45:01 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 09:20:53 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	heap_push(t_heap *heap, t_coder *coder)
 	heap->size++;
 	if (heap->size > 1)
 	{
-		// comparaison function
 		if (!strcmp(heap->scheduler, "fifo"))
 			fifo(heap);
 		else

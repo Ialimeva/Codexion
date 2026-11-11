@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 12:40:19 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/10 14:09:20 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 09:16:22 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "monitor.h"
 #include "cleanup.h"
 
-// TODO: Add error message
 int	start_simulation(t_simulation *sim)
 {
 	unsigned int	i;

@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:17:41 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/10 15:48:53 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 09:23:54 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ void *coder_routine(void *arg)
 		smart_sleep(coder, coder->time_to_compile);
 	while (++i < coder->compile_required && !check_burnout(coder))
 	{
-		acquire_dongles(coder);	// acquire dongles
-		compile(coder);	// compile at t time
-		release_dongles(coder);	// release dongles
-		debugging(coder);	// debug
-		refractoring(coder);	// reafrator
+		acquire_dongles(coder);
+		compile(coder);
+		release_dongles(coder);
+		debugging(coder);
+		refractoring(coder);
 	}
 	return NULL;
 }

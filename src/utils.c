@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:22 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/10 14:44:38 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 09:27:06 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 #include "models.h"
 #include "monitor.h"
 
-void	print_error(char *message)
-{
-	printf("%s", message);
-
-}
 float	get_time(struct timeval *start)
 {
 	struct timeval	end;
