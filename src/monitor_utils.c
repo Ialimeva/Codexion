@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/09 20:13:53 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/11 10:29:41 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 11:39:02 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void    change_dongle_state(t_dongle *dongle)
 {
     pthread_mutex_lock(&dongle->lock);
     dongle->state = unused;
-    pthread_cond_broadcast(&dongle->cond);
     pthread_mutex_unlock(&dongle->lock);
 }
 
