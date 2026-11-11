@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
 #include "lib.h"
 #include "parser.h"
+#include "utils.h"
 
 int	validate_args(char **argv)
 {

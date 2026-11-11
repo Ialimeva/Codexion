@@ -16,8 +16,8 @@
 
 t_coder	*heap_pop(t_heap *heap)
 {
-	t_coder *coder;
-	
+	t_coder	*coder;
+
 	coder = NULL;
 	if (heap->size > 0)
 	{

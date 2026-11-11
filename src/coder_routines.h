@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 #ifndef CODER_ROUTINES_H
-#define CODER_ROUTINES_H
+# define CODER_ROUTINES_H
 
-#include "models.h"
+# include "models.h"
 
-void    acquire_dongles(t_coder *coder);
-void    compile(t_coder *coder);
-void    release_dongles(t_coder *coder);
-void    debugging(t_coder *coder);
-void    refractoring(t_coder *coder);
+void	acquire_dongles(t_coder *coder);
+void	compile(t_coder *coder);
+void	release_dongles(t_coder *coder);
+void	debugging(t_coder *coder);
+void	refractoring(t_coder *coder);
 
 #endif

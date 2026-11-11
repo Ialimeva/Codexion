@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 #ifndef SIMULATION_H
-#define SIMULATION_H
+# define SIMULATION_H
 
-#include "models.h"
+# include "models.h"
 
-int start_simulation(t_simulation *sim);
+int	start_simulation(t_simulation *sim);
 
 #endif

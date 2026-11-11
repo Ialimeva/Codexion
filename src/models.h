@@ -11,81 +11,79 @@
 /* ************************************************************************** */
 
 #ifndef MODELS_H
-#define MODELS_H
+# define MODELS_H
 
-#include "parser.h"
-#include "lib.h"
-#include "heap.h"
+# include "heap.h"
+# include "lib.h"
+# include "parser.h"
 
-typedef struct s_coder   t_coder;
-typedef struct s_dongle  t_dongle;
-typedef struct s_queue   t_queue;
+typedef struct s_coder	t_coder;
+typedef struct s_dongle	t_dongle;
+typedef struct s_queue	t_queue;
 
 typedef enum e_state
 {
 	unused,
 	used,
 	cooldown,
-}	t_state;
+}						t_state;
 
 typedef struct s_coder
 {
-	unsigned int	id;
-	unsigned int	time_to_compile;
-	unsigned int	time_to_debug;
-	unsigned int	time_to_refractor;
-	unsigned int	time_to_burnout;
-	unsigned int	compile_required;
-	unsigned int 	last_compile_time;
-	unsigned int	*compile_done;
-	unsigned int	*burnout;
-	t_dongle		*left_dongle;
-	t_dongle		*right_dongle;
-	pthread_t		thread;
-	pthread_mutex_t	*lock;
-	struct timeval	*start;
-}	t_coder;
-
+	unsigned int		id;
+	unsigned int		time_to_compile;
+	unsigned int		time_to_debug;
+	unsigned int		time_to_refractor;
+	unsigned int		time_to_burnout;
+	unsigned int		compile_required;
+	unsigned int		last_compile_time;
+	unsigned int		*compile_done;
+	unsigned int		*burnout;
+	t_dongle			*left_dongle;
+	t_dongle			*right_dongle;
+	pthread_t			thread;
+	pthread_mutex_t		*lock;
+	struct timeval		*start;
+}						t_coder;
 
 typedef struct s_dongle
 {
-	unsigned int	id;
-	unsigned int 	dongle_cooldown;
-	unsigned int 	last_compile_time;
-	char			*scheduler;
-	t_state			state;
-	t_heap			heap;
-	pthread_mutex_t	lock;
-}	t_dongle;
-
+	unsigned int		id;
+	unsigned int		dongle_cooldown;
+	unsigned int		last_compile_time;
+	char				*scheduler;
+	t_state				state;
+	t_heap				heap;
+	pthread_mutex_t		lock;
+}						t_dongle;
 
 typedef struct s_monitor
 {
-	unsigned int    total_compile;
-    unsigned int    current_t;
-    unsigned int    burnout_t;
-    unsigned int    total_t;
-	unsigned int	nb_coders;
-	unsigned int	compile_required;
-	unsigned int	*burnout;
-	unsigned int	*compile_done;
-	t_dongle		*dongles;
-	t_coder			*coders;
-	pthread_t		thread;
-	pthread_mutex_t	*lock;
-	struct timeval	*start;
-}	t_monitor;
+	unsigned int		total_compile;
+	unsigned int		current_t;
+	unsigned int		burnout_t;
+	unsigned int		total_t;
+	unsigned int		nb_coders;
+	unsigned int		compile_required;
+	unsigned int		*burnout;
+	unsigned int		*compile_done;
+	t_dongle			*dongles;
+	t_coder				*coders;
+	pthread_t			thread;
+	pthread_mutex_t		*lock;
+	struct timeval		*start;
+}						t_monitor;
 
 typedef struct s_simulation
 {
-	unsigned int	compile_done;
-	unsigned int	burnout;
-	t_args			*args;
-	t_coder			*coders;
-	t_dongle		*dongles;
-	t_monitor		monitor;
-	pthread_mutex_t	lock;
-	struct timeval	start;
-}	t_simulation;
+	unsigned int		compile_done;
+	unsigned int		burnout;
+	t_args				*args;
+	t_coder				*coders;
+	t_dongle			*dongles;
+	t_monitor			monitor;
+	pthread_mutex_t		lock;
+	struct timeval		start;
+}						t_simulation;
 
 #endif

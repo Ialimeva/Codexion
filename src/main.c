@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "lib.h"
-#include "parser.h"
 #include "models.h"
+#include "parser.h"
 #include "simulation.h"
 
 int	main(int argc, char **argv)

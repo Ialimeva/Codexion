@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "heap.h"
 #include "lib.h"
 #include "models.h"
-#include "heap.h"
 
 t_heap	*fifo(t_heap *h)
 {

@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "coder_routines.h"
 #include "lib.h"
 #include "models.h"
-#include "coder_routines.h"
-#include "utils.h"
 #include "monitor.h"
+#include "utils.h"
 
 int	coders_init(t_simulation *sim)
 {
@@ -30,7 +30,7 @@ int	coders_init(t_simulation *sim)
 	{
 		sim->coders[i].id = i + 1;
 		sim->coders[i].left_dongle = &sim->dongles[i];
-		sim->coders[i].right_dongle = &sim->dongles[((i - 1)+ size) % size];
+		sim->coders[i].right_dongle = &sim->dongles[((i - 1) + size) % size];
 		sim->coders[i].time_to_compile = sim->args->time_to_compile;
 		sim->coders[i].time_to_debug = sim->args->time_to_debug;
 		sim->coders[i].time_to_refractor = sim->args->time_to_refractor;
@@ -45,12 +45,12 @@ int	coders_init(t_simulation *sim)
 	return (0);
 }
 
-void *coder_routine(void *arg)
+void	*coder_routine(void *arg)
 {
-	t_coder 		*coder;
-	unsigned int 	i;
+	t_coder			*coder;
+	unsigned int	i;
 
-	coder = (t_coder *) arg;
+	coder = (t_coder *)arg;
 	i = -1;
 	if (coder->left_dongle == coder->right_dongle)
 	{
@@ -63,28 +63,27 @@ void *coder_routine(void *arg)
 	{
 		acquire_dongles(coder);
 		if (check_burnout(coder))
-			break;
+			break ;
 		compile(coder);
 		release_dongles(coder);
 		debugging(coder);
 		refractoring(coder);
 	}
-	return NULL;
+	return (NULL);
 }
 
-int coder_threads(t_simulation *sim)
+int	coder_threads(t_simulation *sim)
 {
 	unsigned int	i;
-	int 			rc;
+	int				rc;
 
 	i = -1;
 	while (++i < sim->args->nb_of_coders)
 	{
-		rc = pthread_create(
-			&sim->coders[i].thread, NULL, coder_routine, &sim->coders[i]
-		);
+		rc = pthread_create(&sim->coders[i].thread, NULL, coder_routine,
+				&sim->coders[i]);
 		if (rc)
-			return(1);
+			return (1);
 	}
 	return (0);
 }

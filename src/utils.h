@@ -13,11 +13,11 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-#include "models.h"
+# include "models.h"
 
-float	get_time(struct timeval *start);
+float			get_time(struct timeval *start);
 unsigned int	ft_strlen(char *str);
-void	smart_sleep(t_coder *coder, unsigned int ms);
-void	lonely_coder(t_coder *coder);
+void			smart_sleep(t_coder *coder, unsigned int ms);
+void			lonely_coder(t_coder *coder);
 
 #endif

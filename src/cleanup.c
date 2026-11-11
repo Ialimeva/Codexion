@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/09 11:30:27 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/11 11:41:34 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 13:16:17 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_dongles(t_simulation *sim)
 
 void	free_sim(t_simulation *sim)
 {
-    free_dongles(sim);
-    free(sim->coders);
-    pthread_mutex_destroy(&sim->lock);
+	free_dongles(sim);
+	free(sim->coders);
+	pthread_mutex_destroy(&sim->lock);
 }

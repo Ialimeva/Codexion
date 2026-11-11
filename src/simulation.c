@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cleanup.h"
+#include "coder.h"
+#include "dongle.h"
 #include "lib.h"
 #include "models.h"
-#include "dongle.h"
-#include "coder.h"
 #include "monitor.h"
-#include "cleanup.h"
 
 int	start_simulation(t_simulation *sim)
 {

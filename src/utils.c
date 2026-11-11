@@ -6,14 +6,14 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:22 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/11 10:12:13 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 13:24:55 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "coder.h"
 #include "lib.h"
 #include "models.h"
 #include "monitor.h"
-#include "coder.h"
 
 float	get_time(struct timeval *start)
 {
@@ -21,18 +21,14 @@ float	get_time(struct timeval *start)
 	float			time_taken;
 
 	gettimeofday(&end, NULL);
-
-	time_taken = (
-		(end.tv_sec - start->tv_sec) * 1000 +
-		(end.tv_usec - start->tv_usec) / 1000
-		);
-
+	time_taken = ((end.tv_sec - start->tv_sec) * 1000 + (end.tv_usec
+				- start->tv_usec) / 1000);
 	return (time_taken);
 }
 
 unsigned int	ft_strlen(char *str)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (str[i])
