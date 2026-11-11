@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:17:41 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/11 10:12:54 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 10:30:32 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void *coder_routine(void *arg)
 	while (++i < coder->compile_required && !check_burnout(coder))
 	{
 		acquire_dongles(coder);
+		if (check_burnout(coder))
+			break;
 		compile(coder);
 		release_dongles(coder);
 		debugging(coder);
