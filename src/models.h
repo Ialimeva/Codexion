@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 11:25:10 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/09 21:16:39 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 11:40:44 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_dongle
 	t_state			state;
 	t_heap			heap;
 	pthread_mutex_t	lock;
-	pthread_cond_t	cond;
 }	t_dongle;
 
 

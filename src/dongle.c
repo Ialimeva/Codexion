@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:39:05 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/10 15:48:27 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 11:40:50 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	dongles_init(t_simulation *sim)
 		sim->dongles[i].heap.queue = malloc(q_size * sizeof(t_coder *));
 		memset(sim->dongles[i].heap.queue, 0, q_size * sizeof(t_coder *));
 		pthread_mutex_init(&sim->dongles[i].lock, NULL);
-		pthread_cond_init(&sim->dongles[i].cond, NULL);
 	}
 	return (0);
 }
