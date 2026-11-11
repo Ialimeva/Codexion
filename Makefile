@@ -1,10 +1,12 @@
-NAME  = codexion
-CFLAGS = -Wall -Wextra -Werror -g -pthread #TODO: Remove -g
-OBJ_DIR = OBJ
-SOURCE_DIR = src
-# TODO: Change source file find to all files
-SOURCE = $(shell find $(SOURCE_DIR) -name "*.c" -type f)
-OBJECTS := $(SOURCE:$(SOURCE_DIR)/%.c=$(OBJ_DIR)/%.o)
+NAME		:= 	codexion
+CFLAGS		:= 	-Wall -Wextra -Werror -g -pthread #TODO: Remove -g
+OBJ_DIR		:= 	OBJ
+SOURCE_DIR	:= 	src
+FILES 		:=	cleanup.c coder.c coder_routines.c coder_utils.c \
+				dongle.c heap.c heap_op.c main.c \
+				monitor.c monitor_utils.c parser.c simulation.c utils.c 
+SOURCE 		:=	$(addprefix $(SOURCE_DIR)/, $(FILES))
+OBJECTS 	:=	$(SOURCE:$(SOURCE_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 	@echo "Build Successful"
