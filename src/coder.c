@@ -6,7 +6,7 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 15:17:41 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/11 09:23:54 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 10:12:54 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,11 @@ void *coder_routine(void *arg)
 
 	coder = (t_coder *) arg;
 	i = -1;
-	// lonely coder with mutex
-	// if (coder->left_dongle == coder->right_dongle)
-	// {
-
-	// }
-	// scheduler in coder,not dongle
+	if (coder->left_dongle == coder->right_dongle)
+	{
+		lonely_coder(coder);
+		return (NULL);
+	}
 	if (coder->id % 2 == 0 && !strcmp(coder->left_dongle->scheduler, "edf"))
 		smart_sleep(coder, coder->time_to_compile);
 	while (++i < coder->compile_required && !check_burnout(coder))

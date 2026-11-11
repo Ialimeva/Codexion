@@ -6,13 +6,14 @@
 /*   By: ialrandr <ialrandr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 09:43:22 by ialrandr          #+#    #+#             */
-/*   Updated: 2026/11/11 09:27:06 by ialrandr         ###   ########.fr       */
+/*   Updated: 2026/11/11 10:12:13 by ialrandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 #include "models.h"
 #include "monitor.h"
+#include "coder.h"
 
 float	get_time(struct timeval *start)
 {
@@ -45,5 +46,12 @@ void	smart_sleep(t_coder *coder, unsigned int ms)
 
 	end = get_time(coder->start) + ms;
 	while (!check_burnout(coder) && get_time(coder->start) < end)
+		usleep(5);
+}
+
+void	lonely_coder(t_coder *coder)
+{
+	log_message(coder, "has taken a dongle");
+	while (!check_burnout(coder))
 		usleep(5);
 }
